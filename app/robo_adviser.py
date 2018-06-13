@@ -1,13 +1,3 @@
-#TODO format the latest date correctly
-#TODO see if you can get the date in words
-#TODO go over requirements again
-#TODO README file
-#TODO requirements.txt file
-#TODO app directory
-#TODO data directory
-
-
-
 import json
 import os
 import requests
@@ -33,7 +23,7 @@ def parse_response(response_text):
         stock_values.append(output)
     return stock_values
 
-def write_prices_to_file(prices=[], filename="db/prices.csv"):
+def write_prices_to_file(prices=[], filename= "data/stock_symbol.csv"):
     csv_filepath = os.path.join(os.path.dirname(__file__), "..", filename)
     with open(csv_filepath, "w") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=["date", "open", "high", "low", "close", "volume"])
@@ -58,11 +48,11 @@ if __name__ == '__main__':
 
     try:
         float(stock_symbol)
-        quit("Oops! Expecting a non-numeric stock symbol (e.g. 'MSFT'). Please try again.")
+        quit("Oops! Expecting a non-numeric stock symbol (e.g. 'MSFT').")
     except ValueError as e:
         pass
     if len(stock_symbol)>5:
-        quit("Oops! Expecting a properly formed stock symbol (e.g. 'MSFT'). Please try again.")
+        quit("Oops! Expecting a properly formed stock symbol (e.g. 'MSFT').")
     else:
         pass
 
@@ -73,11 +63,11 @@ if __name__ == '__main__':
     response_output = json.loads(response.text)
     # print(response)
     if "Error Message" in response.text:
-        quit("I'm sorry. That stock symbol could not be found. Please try again.")
+        quit("I'm sorry. That stock symbol could not be found.")
 
     daily_prices = parse_response(response.text)
 
-    write_prices_to_file(prices=daily_prices, filename="db/prices.csv")
+    write_prices_to_file(prices=daily_prices, filename="data/" + stock_symbol + ".csv")
 
     datestamp = datetime.date.today().strftime('%m/%d/%Y')
     timestamp = datetime.datetime.now().strftime('%I:%M %p')
@@ -86,7 +76,7 @@ if __name__ == '__main__':
     dates = list(stock_data)
     latest_daily_data = stock_data[dates[0]]
     last_update = dates[0]
-    # datetime.date(last_update).strftime('%m/%d/%Y')
+    # datetime.date(last_update).strptime('%m/%d/%Y')
     #TODO: format the last update date correctly
 
     high = []
@@ -111,7 +101,7 @@ if __name__ == '__main__':
 
     print("Stock: " + stock_symbol)
     print("Run on: " + datestamp + " at " +  timestamp)
-    print("Latest data from: " + dates[0])
+    print("Latest data from: " + last_update)
     print("Lastest closing price: " + latest_price_usd)
     print("Recent average high price:", avg_high_usd)
     print("Recent average low price:", avg_low_usd)
