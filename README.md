@@ -4,7 +4,7 @@ This is a Python application that will determine whether an investor should purc
 
 ## Installing the program
 
-In order to use the program, it must be installed. One must "fork" this repository and download the forked version using the GitHub.com online interface or the Git command-line interface. From the command-line, the repository can be downloaded by "cloning" it using: \
+In order to use the program, it must be installed. One must "fork" this repository and download the forked version using the GitHub.com online interface or the Git command-line interface. From the command-line, the repository can be downloaded by "cloning" it using:
 ```sh
 git clone https://github.com/YOUR_USERNAME/stocks-app-py.git
 ```
