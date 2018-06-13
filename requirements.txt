@@ -1,5 +1,3 @@
-json
-os
+ipython
 requests
-csv
-datetime
+pytest
